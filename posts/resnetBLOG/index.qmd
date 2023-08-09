@@ -1,0 +1,139 @@
+---
+title: "Classifying Paintings with a resnet18 CNN"
+author: "Kalyan Lakshmanan"
+date: "2023-08-06"
+categories: [Computer Vision, Deep Learning]
+image: wow.jpg
+---
+This is my first blog post. Let's see how it goes.
+
+<img src='wow.jpg' width= 50% height= 50%>
+
+I'm currently working my way through Jeremy Howard and Rachel Thomas's [fast.ai course](https://course.fast.ai/). It's really fun and I can't recommend it enough. Watch [this](https://www.youtube.com/watch?v=gGxe2mN3kAg&t=7s) video -- it dispells a lot of the myths regarding deep learning.
+
+My goals for this blog post are to:
+
+- Get used to blogging and "personal branding / marketing 
+myself" without cringing into oblivion
+
+- Explain how I implemented and deployed an image classifier
+
+    - Data Collection
+
+    - Model Selection
+
+    - Model Training
+    
+    - Model Deployment
+
+## Classifying Paintings
+
+Now, for the cool stuff: I've trained and deployed an image classifier application. In theory, it's supposed to accept a picture of a painting and predict what art period/movement it would belong to.
+
+[Here](https://huggingface.co/spaces/kalymaan/art-classfier) is a link to the app.
+
+It's pretty inaccurate now, I'll get into why later. 
+
+Its fun to play around with though.
+
+Here's a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say, I am a true renaissance man )
+
+<img src= 'otherart/354679114.png' width= 50% height= 50% >
+
+According to my application, I'm an [expressionist](https://en.wikipedia.org/wiki/Expressionism). Apparently I present the world in my subjective view. Wow I'm so deep.
+
+<img src= 'otherart/myresults.PNG' width= 70% height = 70%>
+
+## Data Collection
+
+I knew that I wanted to classify art. First step, get the labeled data. I thought of two ways:
+
+- Scrape search engines and get it manually. (I will be exploring this in my next version of this application. I'll cover that in a future blog post)
+- Find a ready made data set
+
+[Kaggle came to the rescue.](https://www.kaggle.com/datasets/cyanex1702/surreal-symphonies-a-dataset-of-diverse-art)
+
+It's over 7,000 images of paintings. What's really convenient, is the way in which it is organized. Each art movement/period has its own folder with all the associated images in those folders. This file organization is perfect for getting labels.
+
+Now, there are a lot of issues with this data set as well. If you look at the link above and do just a cursory inspection of the images in each folder, you'll notice a lot of repeated images. I suspect that this will cause some over training. Also, there are way too many categories. I'm no art history expert, but I suspect that there's a lot of overlap with the movements/periods defined in the dataset. 
+
+I ignore all those problems and use the data set as is. This is a big reason why the end application isn't that accurate. 
+
+It's ok, I'm planning on making another version in the future.
+
+## Model Selection
+
+The type of learning this model will be doing is called [transfer learning](https://en.wikipedia.org/wiki/Transfer_learning).
+
+Basically image classification is a popular task and many people and organization have already developed pretrained models for image classification. I'll simply use one of those (specifically the [resnet18](https://www.mathworks.com/help/deeplearning/ref/resnet18.html) convolutional neural network) and just train it further on my specific data set to get the behavior that I want. 
+
+## Model Training
+
+Here, I'll demonstrate some of the capabilities of some of the fastai api (it's built on top of PyTorch).
+
+<img src=otherart/blogpost1images/1.PNG>
+
+Along with creating this fantastic course that I'm doing, the fast.ai team have also developed this easy-to-use framework for working in deep learning.
+
+First Let's get the data ready for the model. In order to do that, we use fastai's [DataLoaders](https://docs.fast.ai/data.load.html) class. A [DataBlock](https://docs.fast.ai/data.block.html) is a container/template for the DataLoaders.
+
+<img src= otherart/blogpost1images/2.PNG>
+
+Here's an example of 4 images in the validation set.
+
+<img src= otherart/blogpost1images/3.PNG>
+
+<img src= otherart/blogpost1images/4.PNG>
+
+Now let's give the model something the eat.
+
+<img src= otherart/blogpost1images/5.PNG>
+
+<img src= otherart/blogpost1images/6.PNG>
+
+Side Note: I usually do this type of training/prototyping on GPU servers. But I was curious and decided to do it on an old abandoned desktop computer CPU at my house. It made a lot of interesting noises
+
+I can live with a 4% error rate. Maybe just 4 epochs could have sufficed. There's not a huge benefit the model gains between the 4th and 5th one. 
+
+Let's look at the top  validation image that the model had trouble predicting.
+
+<img src= otherart/blogpost1images/7.PNG>
+
+<img src= otherart/blogpost1images/8.PNG>
+
+The model thought that the above image was contemporary art. It's actually modernist.
+
+... I'll forgive the model on this one. 
+
+This is what I was mentioning before. There are a lot of categories that we're dealing with that are very hard to discern between. 
+[Here's](https://www.eden-gallery.com/news/modern-art-vs-contemporary-art#:~:text=Modern%20art%20refers%20to%20art%20created%20from%20the%201880s%20up,describes%20current%20works%20of%20art.) a link to an explanation of the difference between modern and contemporary art. It seems like it's just the time it was made. 
+
+So for future iterations of this project, I need to carefully pick categories. Do I pick the categories based on time period, or visual style? I may need an art historian to help me with that because intuitively, I don't think that art movements/periods can be easily categorized like that.
+
+In any case, now the model is trained, has new muscles, and is ready to show them off. To get it ready, let's turn it into a pickle.
+
+<img src = 'otherart/Pickle_Rick.jpg'>
+
+See, look how tuned I am with the zeitgeist. I'm hip. I'm cool guy.
+
+Let's export the model into a .pkl file.
+
+<img src= otherart/blogpost1images/9.PNG>
+
+## Model Deployment
+
+I heavily referenced Tanishq Abraham's [blog post](https://www.tanishq.ai/blog/gradio_hf_spaces_tutorial) to deploy this model. Take a look at it. 
+
+[Gradio](https://www.gradio.app/guides/quickstart) is an easy way to demo machine learning models and [HuggingFace Spaces](https://huggingface.co/docs/hub/spaces-overview) are equaly easy to use places to host said models.
+
+After following the blog post (link above), I was left with [this app](https://huggingface.co/spaces/kalymaan/art-classfier)
+
+Now I'm writing this blog post before I make the website that you are reading this on. By then, I may have already deployed it on this website itself. It may be under "Projects" or something. I'm using [Quarto](https://quarto.org/) to build this websit by the way.
+
+## So that's it
+
+That's my blog post. Honestly, it was a slog to get through, but that's ok. I need to get used to writing these anyways.
+
+If you have any comments, corrections, questions, concerns, advice, or you want to just troll me, please email me at kalyankumar@outlook.com. 
+
+Ok thanks bye.

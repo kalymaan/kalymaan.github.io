@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kalyan (Arjun) Lakshmanan // kalymaan",
+    "section": "",
+    "text": "My blog. Read and enjoy.\nTo get in touch, email me: kalyankumar@outloook.com"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "My blog. Read and enjoy."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "",
+    "text": "This is my first blog post. Let’s see how it goes.\nI’m currently working my way through Jeremy Howard and Rachel Thomas’s fast.ai course. It’s really fun and I can’t recommend it enough. Watch this video – it dispells a lot of the myths regarding deep learning.\nMy goals for this blog post are to:"
+  },
+  {
+    "objectID": "posts/welcome/index.html#classifying-paintings",
+    "href": "posts/welcome/index.html#classifying-paintings",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "Classifying Paintings",
+    "text": "Classifying Paintings\nNow, for the cool stuff: I’ve trained and deployed an image classifier application. In theory, it’s supposed to accept a picture of a painting and predict what art period/movement it would belong to.\nHere is a link to the app.\nIt’s pretty inaccurate now, I’ll get into why later.\nIts fun to play around with though.\nHere’s a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say, I am a true renaissance man )\n\nAccording to my application, I’m an expressionist. Apparently I present the world in my subjective view. Wow I’m so deep."
+  },
+  {
+    "objectID": "posts/welcome/index.html#data-collection",
+    "href": "posts/welcome/index.html#data-collection",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "Data Collection",
+    "text": "Data Collection\nI knew that I wanted to classify art. First step, get the labeled data. I thought of two ways:\n\nScrape search engines and get it manually. (I will be exploring this in my next version of this application. I’ll cover that in a future blog post)\nFind a ready made data set\n\nKaggle came to the rescue.\nIt’s over 7,000 images of paintings. What’s really convenient, is the way in which it is organized. Each art movement/period has its own folder with all the associated images in those folders. This file organization is perfect for getting labels.\nNow, there are a lot of issues with this data set as well. If you look at the link above and do just a cursory inspection of the images in each folder, you’ll notice a lot of repeated images. I suspect that this will cause some over training. Also, there are way too many categories. I’m no art history expert, but I suspect that there’s a lot of overlap with the movements/periods defined in the dataset.\nI ignore all those problems and use the data set as is. This is a big reason why the end application isn’t that accurate.\nIt’s ok, I’m planning on making another version in the future."
+  },
+  {
+    "objectID": "posts/welcome/index.html#model-selection",
+    "href": "posts/welcome/index.html#model-selection",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "Model Selection",
+    "text": "Model Selection\nThe type of learning this model will be doing is called transfer learning.\nBasically image classification is a popular task and many people and organization have already developed pretrained models for image classification. I’ll simply use one of those (specifically the resnet18 convolutional neural network) and just train it further on my specific data set to get the behavior that I want."
+  },
+  {
+    "objectID": "posts/welcome/index.html#model-training",
+    "href": "posts/welcome/index.html#model-training",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "Model Training",
+    "text": "Model Training\nHere, I’ll demonstrate some of the capabilities of some of the fastai api (it’s built on top of PyTorch).\n\nAlong with creating this fantastic course that I’m doing, the fast.ai team have also developed this easy-to-use framework for working in deep learning.\nFirst Let’s get the data ready for the model. In order to do that, we use fastai’s DataLoaders class. A DataBlock is a container/template for the DataLoaders.\n\nHere’s an example of 4 images in the validation set.\n\n\nNow let’s give the model something the eat.\n\n\nSide Note: I usually do this type of training/prototyping on GPU servers. But I was curious and decided to do it on an old abandoned desktop computer CPU at my house. It made a lot of interesting noises\nI can live with a 4% error rate. Maybe just 4 epochs could have sufficed. There’s not a huge benefit the model gains between the 4th and 5th one.\nLet’s look at the top validation image that the model had trouble predicting.\n\n\nThe model thought that the above image was contemporary art. It’s actually modernist.\n… I’ll forgive the model on this one.\nThis is what I was mentioning before. There are a lot of categories that we’re dealing with that are very hard to discern between. Here’s a link to an explanation of the difference between modern and contemporary art. It seems like it’s just the time it was made.\nSo for future iterations of this project, I need to carefully pick categories. Do I pick the categories based on time period, or visual style? I may need an art historian to help me with that because intuitively, I don’t think that art movements/periods can be easily categorized like that.\nIn any case, now the model is trained, has new muscles, and is ready to show them off. To get it ready, let’s turn it into a pickle.\n\nSee, look how tuned I am with the zeitgeist. I’m hip. I’m cool guy.\nLet’s export the model into a .pkl file."
+  },
+  {
+    "objectID": "posts/welcome/index.html#model-deployment",
+    "href": "posts/welcome/index.html#model-deployment",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "Model Deployment",
+    "text": "Model Deployment\nI heavily referenced Tanishq Abraham’s blog post to deploy this model. Take a look at it.\nGradio is an easy way to demo machine learning models and HuggingFace Spaces are equaly easy to use places to host said models.\nAfter following the blog post (link above), I was left with this app\nNow I’m writing this blog post before I make the website that you are reading this on. By then, I may have already deployed it on this website itself. It may be under “Projects” or something. I’m using Quarto to build this websit by the way."
+  },
+  {
+    "objectID": "posts/welcome/index.html#so-thats-it",
+    "href": "posts/welcome/index.html#so-thats-it",
+    "title": "Training and Deploying a resnet18 Convolutional Neural Network",
+    "section": "So that’s it",
+    "text": "So that’s it\nThat’s my blog post. Honestly, it was a slog to get through, but that’s ok. I need to get used to writing these anyways.\nIf you have any comments, corrections, questions, concerns, advice, or you want to just troll me, please email me at kalyankumar@outlook.com.\nOk thanks bye."
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "The Blog",
+    "section": "",
+    "text": "Classifying Paintings with a resnet18 CNN\n\n\n\n\n\n\n\nComputer Vision\n\n\nDeep Learning\n\n\n\n\n\n\n\n\n\n\n\nAug 6, 2023\n\n\nKalyan Lakshmanan\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html",
+    "href": "posts/resnetBLOG/index.html",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "",
+    "text": "This is my first blog post. Let’s see how it goes.\nI’m currently working my way through Jeremy Howard and Rachel Thomas’s fast.ai course. It’s really fun and I can’t recommend it enough. Watch this video – it dispells a lot of the myths regarding deep learning.\nMy goals for this blog post are to:"
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#classifying-paintings",
+    "href": "posts/resnetBLOG/index.html#classifying-paintings",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "Classifying Paintings",
+    "text": "Classifying Paintings\nNow, for the cool stuff: I’ve trained and deployed an image classifier application. In theory, it’s supposed to accept a picture of a painting and predict what art period/movement it would belong to.\nHere is a link to the app.\nIt’s pretty inaccurate now, I’ll get into why later.\nIts fun to play around with though.\nHere’s a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say, I am a true renaissance man )\n\nAccording to my application, I’m an expressionist. Apparently I present the world in my subjective view. Wow I’m so deep."
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#data-collection",
+    "href": "posts/resnetBLOG/index.html#data-collection",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "Data Collection",
+    "text": "Data Collection\nI knew that I wanted to classify art. First step, get the labeled data. I thought of two ways:\n\nScrape search engines and get it manually. (I will be exploring this in my next version of this application. I’ll cover that in a future blog post)\nFind a ready made data set\n\nKaggle came to the rescue.\nIt’s over 7,000 images of paintings. What’s really convenient, is the way in which it is organized. Each art movement/period has its own folder with all the associated images in those folders. This file organization is perfect for getting labels.\nNow, there are a lot of issues with this data set as well. If you look at the link above and do just a cursory inspection of the images in each folder, you’ll notice a lot of repeated images. I suspect that this will cause some over training. Also, there are way too many categories. I’m no art history expert, but I suspect that there’s a lot of overlap with the movements/periods defined in the dataset.\nI ignore all those problems and use the data set as is. This is a big reason why the end application isn’t that accurate.\nIt’s ok, I’m planning on making another version in the future."
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#model-selection",
+    "href": "posts/resnetBLOG/index.html#model-selection",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "Model Selection",
+    "text": "Model Selection\nThe type of learning this model will be doing is called transfer learning.\nBasically image classification is a popular task and many people and organization have already developed pretrained models for image classification. I’ll simply use one of those (specifically the resnet18 convolutional neural network) and just train it further on my specific data set to get the behavior that I want."
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#model-training",
+    "href": "posts/resnetBLOG/index.html#model-training",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "Model Training",
+    "text": "Model Training\nHere, I’ll demonstrate some of the capabilities of some of the fastai api (it’s built on top of PyTorch).\n\nAlong with creating this fantastic course that I’m doing, the fast.ai team have also developed this easy-to-use framework for working in deep learning.\nFirst Let’s get the data ready for the model. In order to do that, we use fastai’s DataLoaders class. A DataBlock is a container/template for the DataLoaders.\n\nHere’s an example of 4 images in the validation set.\n\n\nNow let’s give the model something the eat.\n\n\nSide Note: I usually do this type of training/prototyping on GPU servers. But I was curious and decided to do it on an old abandoned desktop computer CPU at my house. It made a lot of interesting noises\nI can live with a 4% error rate. Maybe just 4 epochs could have sufficed. There’s not a huge benefit the model gains between the 4th and 5th one.\nLet’s look at the top validation image that the model had trouble predicting.\n\n\nThe model thought that the above image was contemporary art. It’s actually modernist.\n… I’ll forgive the model on this one.\nThis is what I was mentioning before. There are a lot of categories that we’re dealing with that are very hard to discern between. Here’s a link to an explanation of the difference between modern and contemporary art. It seems like it’s just the time it was made.\nSo for future iterations of this project, I need to carefully pick categories. Do I pick the categories based on time period, or visual style? I may need an art historian to help me with that because intuitively, I don’t think that art movements/periods can be easily categorized like that.\nIn any case, now the model is trained, has new muscles, and is ready to show them off. To get it ready, let’s turn it into a pickle.\n\nSee, look how tuned I am with the zeitgeist. I’m hip. I’m cool guy.\nLet’s export the model into a .pkl file."
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#model-deployment",
+    "href": "posts/resnetBLOG/index.html#model-deployment",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "Model Deployment",
+    "text": "Model Deployment\nI heavily referenced Tanishq Abraham’s blog post to deploy this model. Take a look at it.\nGradio is an easy way to demo machine learning models and HuggingFace Spaces are equaly easy to use places to host said models.\nAfter following the blog post (link above), I was left with this app\nNow I’m writing this blog post before I make the website that you are reading this on. By then, I may have already deployed it on this website itself. It may be under “Projects” or something. I’m using Quarto to build this websit by the way."
+  },
+  {
+    "objectID": "posts/resnetBLOG/index.html#so-thats-it",
+    "href": "posts/resnetBLOG/index.html#so-thats-it",
+    "title": "Classifying Paintings with a resnet18 CNN",
+    "section": "So that’s it",
+    "text": "So that’s it\nThat’s my blog post. Honestly, it was a slog to get through, but that’s ok. I need to get used to writing these anyways.\nIf you have any comments, corrections, questions, concerns, advice, or you want to just troll me, please email me at kalyankumar@outlook.com.\nOk thanks bye."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html",
+    "href": "posts/resnetBLOG/content.html",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "",
+    "text": "This is my first blog post. Let’s see how it goes.\nI’m currently working my way through Jeremy Howard and Rachel Thomas’s fast.ai course. It’s really fun and I can’t recommend it enough. Watch this video – it dispells a lot of the myths regarding deep learning.\nMy goals for this blog post are to: - Get used to blogging and “personal branding / marketing myself” without cringing into oblivion - Explain how I implemented and deployed an image classifier - Data Collection - Model Selection - Model Training - Model Deployment"
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#classifying-paintings",
+    "href": "posts/resnetBLOG/content.html#classifying-paintings",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "Classifying Paintings",
+    "text": "Classifying Paintings\nNow, for the cool stuff: I’ve trained and deployed an image classifier application. In theory, it’s supposed to accept a picture of a painting and predict what art period/movement it would belong to.\nHere is a link to the app.\nIt’s pretty inaccurate now, I’ll get into why later.\nIts fun to play around with though.\nHere’s a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say, I am a true renaissance man )\n\nAccording to my application, I’m an expressionist. Apparently I present the world in my subjective view. Wow I’m so deep."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#data-collection",
+    "href": "posts/resnetBLOG/content.html#data-collection",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "Data Collection",
+    "text": "Data Collection\nI knew that I wanted to classify art. First step, get the labeled data. I thought of two ways:\n\nScrape search engines and get it manually. (I will be exploring this in my next version of this application. I’ll cover that in a future blog post)\nFind a ready made data set\n\nKaggle came to the rescue.\nIt’s over 7,000 images of paintings. What’s really convenient, is the way in which it is organized. Each art movement/period has its own folder with all the associated images in those folders. This file organization is perfect for getting labels.\nNow, there are a lot of issues with this data set as well. If you look at the link above and do just a cursory inspection of the images in each folder, you’ll notice a lot of repeated images. I suspect that this will cause some over training. Also, there are way too many categories. I’m no art history expert, but I suspect that there’s a lot of overlap with the movements/periods defined in the dataset.\nI ignore all those problems and use the data set as is. This is a big reason why the end application isn’t that accurate.\nIt’s ok, I’m planning on making another version in the future."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#model-selection",
+    "href": "posts/resnetBLOG/content.html#model-selection",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "Model Selection",
+    "text": "Model Selection\nThe type of learning this model will be doing is called transfer learning.\nBasically image classification is a popular task and many people and organization have already developed pretrained models for image classification. I’ll simply use one of those (specifically the resnet18 convolutional neural network) and just train it further on my specific data set to get the behavior that I want."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#model-training",
+    "href": "posts/resnetBLOG/content.html#model-training",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "Model Training",
+    "text": "Model Training\nHere, I’ll demonstrate some of the capabilities of some of the fastai api (it’s built on top of PyTorch).\n\nAlong with creating this fantastic course that I’m doing, the fast.ai team have also developed this easy-to-use framework for working in deep learning.\nFirst Let’s get the data ready for the model. In order to do that, we use fastai’s DataLoaders class. A DataBlock is a container/template for the DataLoaders.\n\nHere’s an example of 4 images in the validation set.\n\n\nNow let’s give the model something the eat.\n\n\nSide Note: I usually do this type of training/prototyping on GPU servers. But I was curious and decided to do it on an old abandoned desktop computer CPU at my house. It made a lot of interesting noises\nI can live with a 4% error rate. Maybe just 4 epochs could have sufficed. There’s not a huge benefit the model gains between the 4th and 5th one.\nLet’s look at the top validation image that the model had trouble predicting.\n\n\nThe model thought that the above image was contemporary art. It’s actually modernist.\n… I’ll forgive the model on this one.\nThis is what I was mentioning before. There are a lot of categories that we’re dealing with that are very hard to discern between. Here’s a link to an explanation of the difference between modern and contemporary art. It seems like it’s just the time it was made.\nSo for future iterations of this project, I need to carefully pick categories. Do I pick the categories based on time period, or visual style? I may need an art historian to help me with that because intuitively, I don’t think that art movements/periods can be easily categorized like that.\nIn any case, now the model is trained, has new muscles, and is ready to show them off. To get it ready, let’s turn it into a pickle.\n\nSee, look how tuned I am with the zeitgeist. I’m hip. I’m cool guy.\nLet’s export the model into a .pkl file."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#model-deployment",
+    "href": "posts/resnetBLOG/content.html#model-deployment",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "Model Deployment",
+    "text": "Model Deployment\nI heavily referenced Tanishq Abraham’s blog post to deploy this model. Take a look at it.\nGradio is an easy way to demo machine learning models and HuggingFace Spaces are equaly easy to use places to host said models.\nAfter following the blog post (link above), I was left with this app\nNow I’m writing this blog post before I make the website that you are reading this on. By then, I may have already deployed it on this website itself. It may be under “Projects” or something. I’m using Quarto to build this websit by the way."
+  },
+  {
+    "objectID": "posts/resnetBLOG/content.html#so-thats-it",
+    "href": "posts/resnetBLOG/content.html#so-thats-it",
+    "title": "Kalyan \"Arjun\" Lakshmanan",
+    "section": "So that’s it",
+    "text": "So that’s it\nThat’s my blog post. Honestly, it was a slog to get through, but that’s ok. I need to get used to writing these anyways.\nIf you have any comments, corrections, questions, concerns, advice, or you want to just troll me, please email me at kalyankumar@outlook.com.\nOk thanks bye."
+  }
+]
