@@ -14,9 +14,9 @@ I'm currently working my way through Jeremy Howard and Rachel Thomas's [fast.ai 
 My goals for this blog post are to:
 
 - Get used to blogging and "personal branding / marketing 
-myself" without cringing into oblivion
+myself" without cringing into oblivion.
 
-- Explain how I implemented and deployed an image classifier
+- Explain how I implemented and deployed an image classifier:
 
     - Data Collection
 
@@ -36,11 +36,11 @@ It's pretty inaccurate now, I'll get into why later.
 
 Its fun to play around with though.
 
-Here's a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say, I am a true renaissance man )
+Here's a painting I made. (Yes I know, I should quit everything and become an artist fulltime. What can I say? I am a true renaissance man. )
 
 <img src= 'otherart/354679114.png' width= 50% height= 50% >
 
-According to my application, I'm an [expressionist](https://en.wikipedia.org/wiki/Expressionism). Apparently I present the world in my subjective view. Wow I'm so deep.
+According to the application I developed, I'm an [expressionist](https://en.wikipedia.org/wiki/Expressionism). Apparently, I present the world in my subjective view. Wow, I'm so deep.
 
 <img src= 'otherart/myresults.PNG' width= 70% height = 70%>
 
@@ -48,8 +48,8 @@ According to my application, I'm an [expressionist](https://en.wikipedia.org/wik
 
 I knew that I wanted to classify art. First step, get the labeled data. I thought of two ways:
 
-- Scrape search engines and get it manually. (I will be exploring this in my next version of this application. I'll cover that in a future blog post)
-- Find a ready made data set
+- Scrape search engines and get it manually. (I will be exploring this in my next version of this application. I'll cover that in a future blog post.)
+- Find a ready made data set.
 
 [Kaggle came to the rescue.](https://www.kaggle.com/datasets/cyanex1702/surreal-symphonies-a-dataset-of-diverse-art)
 
