@@ -85,7 +85,7 @@ Here's an example of 4 images in the validation set.
 
 <img src= otherart/blogpost1images/4.PNG>
 
-Now let's give the model something the eat.
+Now let's give the model something to eat.
 
 <img src= otherart/blogpost1images/5.PNG>
 
